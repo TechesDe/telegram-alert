@@ -13,7 +13,7 @@ function App() {
 
   return (
     <div className="App">
-      <p>Test APP</p>
+      <p>Тут должны быть отчеты по вашему прогону...</p>
       <button onClick={onClose}>Close</button>
     </div>
   );
