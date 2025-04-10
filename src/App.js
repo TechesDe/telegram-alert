@@ -1,8 +1,6 @@
 import * as React from 'react';
 import './App.css';
 import { PieChart } from '@mui/x-charts';
-import { useDrawingArea } from '@mui/x-charts/hooks';
-import { styled } from '@mui/material/styles';
 
 const data = [
   { id: 0, value: 10, label: "Неуспешные" },
