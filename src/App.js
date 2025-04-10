@@ -3,6 +3,13 @@ import './App.css';
 import { PieChart } from '@mui/x-charts';
 import Stack from '@mui/material/Stack';
 
+const styleNotSelected = {
+  userSelect: 'none',
+  WebkitUserSelect: 'none',
+  MozUserSelect: 'none',
+  msUserSelect: 'none'
+};
+
 const data = [
   { id: 0, value: 10, label: "Неуспешные" },
   { id: 1, value: 10, label: "Сломанных" },
@@ -84,8 +91,8 @@ function App() {
         >
           <PieCenterLabel>
             <div>
-              <div>{highlightedStat.label}</div>
-              <div>{highlightedStat.value}</div>
+              <div style={styleNotSelected}>{highlightedStat.label}</div>
+              <div style={styleNotSelected}>{highlightedStat.value}</div>
             </div>
           </PieCenterLabel>
         </PieChart>
