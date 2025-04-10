@@ -2,6 +2,8 @@ import * as React from 'react';
 import './App.css';
 import { PieChart } from '@mui/x-charts';
 import Stack from '@mui/material/Stack';
+import { ChartsLegend } from '@mui/x-charts/ChartsLegend';
+import { ResponsiveChartContainer } from '@mui/x-charts/ResponsiveChartContainer';
 
 const styleNotSelected = {
   userSelect: 'none',
@@ -10,12 +12,21 @@ const styleNotSelected = {
   msUserSelect: 'none'
 };
 
+const colors=["#ff6464", "#ffe162", "#91c483", "#d9d9d9"];
+
 const data = [
-  { id: 0, value: 10, label: "Неуспешные" },
-  { id: 1, value: 10, label: "Сломанных" },
-  { id: 2, value: 10, label: "Успешных" },
-  { id: 3, value: 10, label: "Пропущенных" },
+  { id: 0, value: 18, label: "Неуспешные" },
+  { id: 1, value: 3, label: "Сломанных" },
+  { id: 2, value: 51, label: "Успешных" },
+  { id: 3, value: 14, label: "Пропущенных" },
 ];
+
+const total = data.reduce((accum, item) => accum + item.value, 0);
+
+data.forEach(item => {
+  item.percent = total > 0 ? item.value / total : 0;
+  console.log(item.value / total);
+})
 
 const defaultStat = data.length > 0 ? data[0] : null;
 
@@ -57,26 +68,29 @@ function App() {
     console.log(highlightedItem?.dataIndex);
     sethighlightedStat( highlightedItem ? data[highlightedItem.dataIndex] : defaultStat)
   }, [highlightedItem]);
-
-  const onClose = () => {
-    tg.close();
-  }
-
+  
   return (
     <div className="App">
-      <p>Тут должны быть отчеты по вашему прогону...</p>
-      <button onClick={onClose}>Close</button>
+      <p><i>Отчёт о прогоне автотестов:</i></p>
+      <div><b><i>Прогон API автотестов по сервису ekd на стенде test02</i></b></div>
+      <div><i>(Сборка: 17298)</i></div>
+      <p>
+        <a href='https://testops.allure.devops.bftcom.com/launch/89445'>Открыть в ТестОпс</a>
+        <span> </span>
+        <a href='https://testops.allure.devops.bftcom.com/launch/89445'>Открыть в CI/CD</a>
+      </p>
+      {/* <button onClick={onClose}>Close</button> */}
       <Stack direction="row">
         <PieChart
           className='pieChart'
-          colors={["#ff6464", "#ffe162", "#91c483", "#d9d9d9"]}
+          colors={colors}
           slotProps= { {legend: { hidden: true }} }
           series={[
             {
               data: data,
               innerRadius: innerRadius,
               outerRadius: outerRadius,
-              paddingAngle: 5,
+              paddingAngle: 1,
               cornerRadius: 5,
               startAngle: 0,
               endAngle: 365,
@@ -91,11 +105,28 @@ function App() {
         >
           <PieCenterLabel>
             <div>
-              <div style={styleNotSelected}>{highlightedStat.label}</div>
-              <div style={styleNotSelected}>{highlightedStat.value}</div>
+              <div style={styleNotSelected}><b>{( highlightedStat.percent * 100 ).toFixed(2) + "%"}</b></div>
+              <div style={styleNotSelected}>из {total}</div>
             </div>
           </PieCenterLabel>
         </PieChart>
+        <ResponsiveChartContainer 
+        series={[
+          {
+              type: 'pie',
+              id: 'series-1',
+              label: 'Series 1',
+              data: data,
+            }
+          ]} width={200} height={200} colors={colors}>
+          <ChartsLegend
+            direction="row"
+            position={{
+              horizontal: 'left',
+              vertical: 'top',
+            }}
+          />
+        </ResponsiveChartContainer>
       </Stack>
     </div>
   );
