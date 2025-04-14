@@ -12,6 +12,10 @@ body{
   font-style: normal;
 }
 
+.MuiChip-root.MuiChip-clickable:hover{
+  background-color: var(--tg-theme-hint-color);
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

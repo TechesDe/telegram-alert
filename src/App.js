@@ -2,8 +2,10 @@ import * as React from 'react';
 import './App.css';
 import { PieChart } from '@mui/x-charts';
 import Stack from '@mui/material/Stack';
-import { ChartsLegend } from '@mui/x-charts/ChartsLegend';
-import { ResponsiveChartContainer } from '@mui/x-charts/ResponsiveChartContainer';
+import Chip from '@mui/material/Chip';
+import { Icon } from "@iconify/react";
+import { theme } from './theme/theme.js';
+import Link from '@mui/material/Link';
 
 const styleNotSelected = {
   userSelect: 'none',
@@ -12,13 +14,21 @@ const styleNotSelected = {
   msUserSelect: 'none'
 };
 
-const colors=["#ff6464", "#ffe162", "#91c483", "#d9d9d9"];
+const colors=[theme.palette.status.fail, theme.palette.status.broken, theme.palette.status.success, theme.palette.status.skip];
 
 const data = [
-  { id: 0, value: 18, label: "Неуспешные" },
-  { id: 1, value: 3, label: "Сломанных" },
-  { id: 2, value: 51, label: "Успешных" },
-  { id: 3, value: 14, label: "Пропущенных" },
+  { id: 0, value: 18, label: "Неуспешные", color: theme.palette.status.fail, 
+    tests:[
+      {
+        title: "ЛК Работодателя. Формы отчётности - Заполнение отчётов",
+        importance: "Блокирующий",
+        link: "(https://testops.allure.devops.bftcom.com/launch/89445/tree?treeId=48342960&search=W3siaWQiOiJ0ZXN0Q2FzZUlkT3JOYW1lIiwidHlwZSI6InN0cmluZyIsInZhbHVlIjoiMjEyNjk1In1d)"
+      }
+    ] 
+  },
+  { id: 1, value: 3, label: "Сломанных", color: theme.palette.status.broken },
+  { id: 2, value: 51, label: "Успешных", color: theme.palette.status.success },
+  { id: 3, value: 14, label: "Пропущенных", color: theme.palette.status.skip },
 ];
 
 const total = data.reduce((accum, item) => accum + item.value, 0);
@@ -65,22 +75,25 @@ function App() {
   }, []);
 
   React.useEffect( () => {
-    console.log(highlightedItem?.dataIndex);
+    console.log(highlightedItem);
     sethighlightedStat( highlightedItem ? data[highlightedItem.dataIndex] : defaultStat)
   }, [highlightedItem]);
-  
+
   return (
     <div className="App">
       <p><i>Отчёт о прогоне автотестов:</i></p>
       <div><b><i>Прогон API автотестов по сервису ekd на стенде test02</i></b></div>
       <div><i>(Сборка: 17298)</i></div>
-      <p>
-        <a href='https://testops.allure.devops.bftcom.com/launch/89445'>Открыть в ТестОпс</a>
-        <span> </span>
-        <a href='https://testops.allure.devops.bftcom.com/launch/89445'>Открыть в CI/CD</a>
-      </p>
+      <Stack direction="row" gap={2} useFlexGap sx={{ p:2, justifyContent: "center", alignItems: "center", flexWrap: 'wrap'}}>
+        <Link href="https://testops.allure.devops.bftcom.com/launch/89445" underline="always">
+          {'Открыть в ТестОпс'}
+        </Link>
+        <Link href="https://testops.allure.devops.bftcom.com/launch/89445" underline="always">
+          {'Открыть в CI/CD"'}
+        </Link>
+      </Stack>
       {/* <button onClick={onClose}>Close</button> */}
-      <Stack direction="row">
+      <Stack direction="column" gap={2} sx={{ justifyContent: "center", alignItems: "center"}}>
         <PieChart
           className='pieChart'
           colors={colors}
@@ -100,8 +113,9 @@ function App() {
           margin={{ right: 5 }}
           width={200}
           height={200}
+          onItemClick={(elem, d)=>{setHighLightedItem(d)}}
           highlightedItem={highlightedItem}
-          onHighlightChange={setHighLightedItem}
+          //onHighlightChange={setHighLightedItem}
         >
           <PieCenterLabel>
             <div>
@@ -110,23 +124,33 @@ function App() {
             </div>
           </PieCenterLabel>
         </PieChart>
-        <ResponsiveChartContainer 
-        series={[
+          <Stack direction="row" gap={2} useFlexGap sx={{ flexWrap: 'wrap' }}>
           {
-              type: 'pie',
-              id: 'series-1',
-              label: 'Series 1',
-              data: data,
+            data.map(
+              elem => {
+                return <Chip 
+                theme={theme} 
+                sx={{ backgroundColor: `${elem.color}` }} 
+                icon={<Icon icon="material-symbols-light:done" width="24" height="24" />} 
+                label={`${elem.label}`} 
+                onClick={()=>{
+                  setHighLightedItem({
+                    "seriesId": "auto-generated-id-0",
+                    "dataIndex": elem.id
+                });
+                }}
+                />
+              })
+          }
+          </Stack>
+          <div>
+            {data.filter(elem => elem.id === highlightedItem?.dataIndex).map(elem => <span>{`${elem.label}`}</span>)}
+          </div>
+          <div>
+            {
+              data.find(elem => elem.id === highlightedItem?.dataIndex)?.tests?.map(elem => <span>{`${elem.title}`}</span>)
             }
-          ]} width={200} height={200} colors={colors}>
-          <ChartsLegend
-            direction="row"
-            position={{
-              horizontal: 'left',
-              vertical: 'top',
-            }}
-          />
-        </ResponsiveChartContainer>
+          </div>
       </Stack>
     </div>
   );
