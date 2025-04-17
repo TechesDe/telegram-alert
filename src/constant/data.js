@@ -1,12 +1,12 @@
 import { theme } from '../theme/theme.js';
 
 export const data = [
-  { id: 0, value: 18, label: "Неуспешные", color: theme.palette.status.fail, 
+  { id: 0, value: 18, label: "Неуспешныx", color: theme.palette.status.fail, 
     tests:[
       {
         title: "ЛК Работодателя. Формы отчётности - Заполнение отчётов",
         importance: "Блокирующий",
-        link: "(https://testops.allure.devops.bftcom.com/launch/89445/tree?treeId=48342960&search=W3siaWQiOiJ0ZXN0Q2FzZUlkT3JOYW1lIiwidHlwZSI6InN0cmluZyIsInZhbHVlIjoiMjEyNjk1In1d)"
+        link: "https://testops.allure.devops.bftcom.com/launch/89445/tree?treeId=48342960&search=W3siaWQiOiJ0ZXN0Q2FzZUlkT3JOYW1lIiwidHlwZSI6InN0cmluZyIsInZhbHVlIjoiMjEyNjk1In1d"
       }
     ] 
   },

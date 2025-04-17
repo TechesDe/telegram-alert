@@ -2,11 +2,13 @@ import * as React from 'react';
 import './App.css';
 import Stack from '@mui/material/Stack';
 import { theme } from './theme/theme.js';
-import Link from '@mui/material/Link';
 import { Chart } from './components/chart.js';
 import { colors } from './theme/statusColors.js';
 import { data } from './constant/data.js';
 import { Chippler } from './components/chippler.js';
+import { BasicTable } from './components/table.js';
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
 
 
 const defaultStat = data.length > 0 ? data[0] : null;
@@ -26,17 +28,15 @@ function App() {
 
   return (
     <div className="App">
-      <p><i>Отчёт о прогоне автотестов:</i></p>
-      <div><b><i>Прогон API автотестов по сервису ekd на стенде test02</i></b></div>
-      <div><i>(Сборка: 17298)</i></div>
-      <Stack direction="row" gap={2} useFlexGap sx={{ p:2, justifyContent: "center", alignItems: "center", flexWrap: 'wrap'}}>
-        <Link href="https://testops.allure.devops.bftcom.com/launch/89445" underline="always">
-          {'Открыть в ТестОпс'}
-        </Link>
-        <Link href="https://testops.allure.devops.bftcom.com/launch/89445" underline="always">
-          {'Открыть в CI/CD"'}
-        </Link>
-      </Stack>
+      <header>
+        <div><i>Отчёт о прогоне автотестов:</i></div>
+        <div><b><i>Прогон API автотестов по сервису ekd на стенде test02</i></b></div>
+        <div><i>(Сборка: 17298)</i></div>
+      </header>
+      <ButtonGroup variant="outlined" aria-label="Basic button group" sx={{padding: "10px" }}>
+        <Button href="https://testops.allure.devops.bftcom.com/launch/89445">Открыть в ТестОпс</Button>
+        <Button href="https://testops.allure.devops.bftcom.com/launch/89445">Открыть в CI/CD</Button>
+      </ButtonGroup>
       {/* <button onClick={onClose}>Close</button> */}
       <Stack direction="column" gap={2} sx={{ justifyContent: "center", alignItems: "center"}}>
         <Chart 
@@ -50,6 +50,7 @@ function App() {
           setHighLightedItem={setHighLightedItem} 
           theme = {theme} 
         />
+        <BasicTable data={data} id={highlightedItem?.dataIndex}/>
           <div>
             {data.filter(elem => elem.id === highlightedItem?.dataIndex).map(elem => <span>{`${elem.label}`}</span>)}
           </div>

@@ -34,7 +34,7 @@ const styleNotSelected = {
     msUserSelect: 'none'
   };     
 
-export function Chart({colors, data, highlightedItem, highlightedStat}, ...props) {
+export function Chart({colors, data, highlightedItem, highlightedStat, ...props} ) {
     const total = data.reduce((accum, item) => accum + item.value, 0);
 
     return (

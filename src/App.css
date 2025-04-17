@@ -12,6 +12,15 @@ body{
   font-style: normal;
 }
 
+header {
+  padding: 10px 0px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  justify-content: flex-start;
+}
+
 .MuiChip-root.MuiChip-clickable:hover{
   background-color: var(--tg-theme-hint-color);
 }
