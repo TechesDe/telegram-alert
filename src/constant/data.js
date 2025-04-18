@@ -7,6 +7,11 @@ export const data = [
         title: "ЛК Работодателя. Формы отчётности - Заполнение отчётов",
         importance: "Блокирующий",
         link: "https://testops.allure.devops.bftcom.com/launch/89445/tree?treeId=48342960&search=W3siaWQiOiJ0ZXN0Q2FzZUlkT3JOYW1lIiwidHlwZSI6InN0cmluZyIsInZhbHVlIjoiMjEyNjk1In1d"
+      },
+      {
+        title: "ЛК Работодателя. Формы отчётности - Заполнение данных",
+        importance: "Важный",
+        link: "https://testops.allure.devops.bftcom.com/launch/89445/tree?treeId=48342960&search=W3siaWQiOiJ0ZXN0Q2FzZUlkT3JOYW1lIiwidHlwZSI6InN0cmluZyIsInZhbHVlIjoiMjEyNjk1In1d"
       }
     ] 
   },

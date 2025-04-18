@@ -4,7 +4,15 @@ import { Icon } from "@iconify/react";
 
 export function Chippler({data, setHighLightedItem, theme, ...props}) {
     return (
-    <Stack direction="row" gap={2} useFlexGap sx={{ flexWrap: 'wrap' }} >
+    <Stack 
+      direction="row" 
+      gap={2} 
+      useFlexGap 
+      sx={{ 
+        justifyContent: 'center',
+        flexWrap: 'wrap' 
+        }} 
+    >
         {
           data.map(
             elem => {

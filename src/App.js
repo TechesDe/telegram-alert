@@ -9,6 +9,9 @@ import { Chippler } from './components/chippler.js';
 import { BasicTable } from './components/table.js';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import { Cards } from './components/cards.js';
 
 
 const defaultStat = data.length > 0 ? data[0] : null;
@@ -17,6 +20,7 @@ const tg = window.Telegram.WebApp;
 function App() {
   const [highlightedItem, setHighLightedItem] = React.useState(null);
   const [highlightedStat, sethighlightedStat] = React.useState(defaultStat);
+  const [view, setView] = React.useState("cards");
 
   React.useEffect( () => {
     tg.ready();
@@ -38,7 +42,7 @@ function App() {
         <Button href="https://testops.allure.devops.bftcom.com/launch/89445">Открыть в CI/CD</Button>
       </ButtonGroup>
       {/* <button onClick={onClose}>Close</button> */}
-      <Stack direction="column" gap={2} sx={{ justifyContent: "center", alignItems: "center"}}>
+      <Stack direction="column" gap={2} sx={{ width: "100%", justifyContent: "center", alignItems: "center"}}>
         <Chart 
           colors = {colors}
           data = {data}
@@ -50,15 +54,19 @@ function App() {
           setHighLightedItem={setHighLightedItem} 
           theme = {theme} 
         />
-        <BasicTable data={data} id={highlightedItem?.dataIndex}/>
-          <div>
-            {data.filter(elem => elem.id === highlightedItem?.dataIndex).map(elem => <span>{`${elem.label}`}</span>)}
-          </div>
-          <div>
-            {
-              data.find(elem => elem.id === highlightedItem?.dataIndex)?.tests?.map(elem => <span>{`${elem.title}`}</span>)
-            }
-          </div>
+        <ToggleButtonGroup
+          color="primary"
+          value={view}
+          exclusive
+          onChange={(event, newAlignment) => { setView(newAlignment); }}
+          aria-label="Вид отображения"
+        >
+          <ToggleButton value="table">Таблица</ToggleButton>
+          <ToggleButton value="cards">Карточки</ToggleButton>
+        </ToggleButtonGroup>
+        {view === "table" && <BasicTable data={data} id={highlightedItem?.dataIndex}/>}
+        {view === "cards" && <Cards data={data} id={highlightedItem?.dataIndex}/>}
+        
       </Stack>
     </div>
   );

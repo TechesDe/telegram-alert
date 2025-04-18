@@ -29,7 +29,7 @@ export function BasicTable({id, data}) {
 
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <Table size='small' sx={{ maxWidth: "100%" }} aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell>Номер</TableCell>
