@@ -37,7 +37,7 @@ function App() {
         <div><b><i>Прогон API автотестов по сервису ekd на стенде test02</i></b></div>
         <div><i>(Сборка: 17298)</i></div>
       </header>
-      <ButtonGroup variant="outlined" aria-label="Basic button group" sx={{padding: "10px" }}>
+      <ButtonGroup variant="outlined" aria-label="Basic button group" theme = { theme }>
         <Button href="https://testops.allure.devops.bftcom.com/launch/89445">Открыть в ТестОпс</Button>
         <Button href="https://testops.allure.devops.bftcom.com/launch/89445">Открыть в CI/CD</Button>
       </ButtonGroup>
@@ -61,8 +61,8 @@ function App() {
           onChange={(event, newAlignment) => { setView(newAlignment); }}
           aria-label="Вид отображения"
         >
-          <ToggleButton value="table">Таблица</ToggleButton>
-          <ToggleButton value="cards">Карточки</ToggleButton>
+          <ToggleButton value="table" theme = {theme} >Таблица</ToggleButton>
+          <ToggleButton value="cards" theme = {theme} >Карточки</ToggleButton>
         </ToggleButtonGroup>
         {view === "table" && <BasicTable data={data} id={highlightedItem?.dataIndex}/>}
         {view === "cards" && <Cards data={data} id={highlightedItem?.dataIndex}/>}

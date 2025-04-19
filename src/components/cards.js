@@ -17,15 +17,15 @@ const Code = styled('code')(({ theme }) => ({
 
 
 
-function createData(number, name, importance, link) {
-  return { number, name, importance, link };
+function createData(number, name, importance, link, message) {
+  return { number, name, importance, link, message };
 }
 
 function getRows(data){
     if (data === undefined)
         return [];
     return data.tests? data.tests.map((elem)=>{
-        return createData(0, elem.title, elem.importance, elem.link);
+        return createData(elem.allure_id, elem.name, elem.importance, elem.link, elem.message);
     }) : [];
 }
 
@@ -36,14 +36,26 @@ function getCard(data){
                 <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 12 }}>
                     {data.number}
                 </Typography>
-                <Typography component="div" sx={{ fontWeight: 700, color: 'text.primary', fontSize: 14 }}>
+                <Typography component="div" 
+                sx={{ 
+                    textAlign: 'left', 
+                    display: '-webkit-box',  
+                    WebkitLineClamp: 3, 
+                    WebkitBoxOrient: 'vertical', 
+                    fontWeight: 700, 
+                    color: 'text.primary', 
+                    fontSize: 11, 
+                    overflow:'clip', 
+                    textOverflow: 'ellipsis' 
+                    }}
+                >
                     {data.name}
                 </Typography>
                 <Typography sx={{ fontSize: 10, color: 'red', mb: 0.5 }}>{data.importance}</Typography>
-                <Typography sx={{ fontSize: 10, mb: 0.5 }}>
-                Ошибка: не найден компонент
+                <Typography sx={{ fontSize: 10, mb: 0.5, textAlign: 'left' }}>
+                Ошибка:
                 <br />
-                <Code>{'//header[1]'}</Code>
+                <Code>{`${data.message}`}</Code>
                 </Typography>
             </CardContent>
             <CardActions>

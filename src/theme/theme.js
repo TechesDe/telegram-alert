@@ -1,4 +1,5 @@
 import { createTheme } from '@mui/material/styles';
+import { ruRU } from '@mui/material/locale';
 
 export const theme = createTheme({
   typography:{
@@ -7,7 +8,7 @@ export const theme = createTheme({
   palette: {
     primary: {
       light: '#757ce8',
-      main: '#3f50b5',
+      main: '#b4bbea',
       dark: '#002884',
       contrastText: '#fff',
     },
@@ -26,4 +27,50 @@ export const theme = createTheme({
       skip: '#d9d9d9'
     }
   },
+  components:{
+    MuiToggleButton:{
+      styleOverrides:{
+        root:{
+          color: 'rgba(255, 255, 255, 54%)',
+          border: '1px solid rgba(123, 123, 123, 0.12)'
+        }
+      }
+    },
+    MuiButtonGroup:{
+      styleOverrides:{
+        root:{
+          padding: '10px',
+        }
+      }
+    },
+    MuiButton:{
+      styleOverrides:{
+        root:{
+          backgroundColor: '#FFF'
+        }
+      }
+    },
+    MuiTableContainer:{
+      styleOverrides:{
+        root:{
+          backgroundColor: '#242a34',
+        }
+      }
+    },
+    MuiTableCell:{
+      styleOverrides:{
+        root:{
+          color: "#fff"
+        }
+      }
+    },
+    MuiTablePagination:{
+      styleOverrides:{
+        root:{
+          color: "#fff"
+        }
+      }
+    },
+  },
+  ruRU
 });
