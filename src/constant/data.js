@@ -1,23 +1,17 @@
 import { theme } from '../theme/theme.js';
+import launch from '../data/Прогон API автотестов по сервису ekd на стенде test02.json';
+
+const skipped = launch.filter(elem => elem.status === "skipped");
+const failed = launch.filter(elem => elem.status === "failed");
+const passed = launch.filter(elem => elem.status === "passed");
+const broken = launch.filter(elem => elem.status === "broken");
+
 
 export const data = [
-  { id: 0, value: 18, label: "Неуспешныx", color: theme.palette.status.fail, 
-    tests:[
-      {
-        title: "ЛК Работодателя. Формы отчётности - Заполнение отчётов",
-        importance: "Блокирующий",
-        link: "https://testops.allure.devops.bftcom.com/launch/89445/tree?treeId=48342960&search=W3siaWQiOiJ0ZXN0Q2FzZUlkT3JOYW1lIiwidHlwZSI6InN0cmluZyIsInZhbHVlIjoiMjEyNjk1In1d"
-      },
-      {
-        title: "ЛК Работодателя. Формы отчётности - Заполнение данных",
-        importance: "Важный",
-        link: "https://testops.allure.devops.bftcom.com/launch/89445/tree?treeId=48342960&search=W3siaWQiOiJ0ZXN0Q2FzZUlkT3JOYW1lIiwidHlwZSI6InN0cmluZyIsInZhbHVlIjoiMjEyNjk1In1d"
-      }
-    ] 
-  },
-  { id: 1, value: 3, label: "Сломанных", color: theme.palette.status.broken },
-  { id: 2, value: 51, label: "Успешных", color: theme.palette.status.success },
-  { id: 3, value: 14, label: "Пропущенных", color: theme.palette.status.skip },
+  { id: 0, value: failed.length, label: "Неуспешныx", color: theme.palette.status.fail, tests: failed },
+  { id: 1, value: broken.length, label: "Сломанных", color: theme.palette.status.broken, tests: broken },
+  { id: 2, value: passed.length, label: "Успешных", color: theme.palette.status.success, tests: passed },
+  { id: 3, value: skipped.length, label: "Пропущенных", color: theme.palette.status.skip, tests: skipped },
 ];
 
 const total = data.reduce((accum, item) => accum + item.value, 0);
